@@ -97,8 +97,8 @@ VS1053 player(VS1053_CS, VS1053_DCS, VS1053_DREQ);
 #include "./include/ir_butt.h"
 #include "./include/ir.h"
 // WiFi settings
-const char *ssid = "SSSR65";
-const char *password = "38314447668501196816";
+const char *ssid = "xxxxxxxx";
+const char *password = "xxxxxxxxxxxxxxxx";
 #include"./include/connectToWIFI.h"
 //Gestione data e ora
 #include "./include/datetime.h"
