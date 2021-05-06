@@ -119,7 +119,7 @@ void setup() {
     // Wait for VS1053 and PAM8403 to power up
     // otherwise the system might not start up correctly
     delay(3000);
-    DEBUG_PRINTLN("\n\nSimple Radio Node WiFi Radio");
+    DEBUG_PRINTLN("\n\nSemplice Web Radio");
     // Setup delle routine di interrupt per i tasti stazone e volume
     setupInt();
     //Setup del modo di funzionamento
