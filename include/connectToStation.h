@@ -32,7 +32,12 @@ void connectToStation()
     DEBUG_PRINT("Requesting stream: ");
     DEBUG_PRINTLN(path[STATION]);
 
-    client.print(String("GET ") + path[STATION] + " HTTP/1.1\r\n" +
+    /*client.print(String("GET ") + path[STATION] + " HTTP/1.1\r\n" +
+                 "Host: " + host[STATION] + "\r\n" +
+                 "Connection: close\r\n\r\n");*/
+    //Cambiato HTTP 1.1 in HTTP 1.0 per risolvere problema BBC
+    client.print(String("GET ") + path[STATION] + " HTTP/1.0\r\n" +
                  "Host: " + host[STATION] + "\r\n" +
                  "Connection: close\r\n\r\n");
+delay(2000);
 }

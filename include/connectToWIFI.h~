@@ -1,4 +1,4 @@
-void connectToWIFI()
+void connectToWIFI(ssid, password)
   {
     DEBUG_PRINT("Connecting to SSID ");
     DEBUG_PRINTLN(ssid);

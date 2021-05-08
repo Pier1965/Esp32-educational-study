@@ -16,6 +16,7 @@ struct tm timeinfo;
   String months[12] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"};
   String Data;
   String Ora;
+  String minuti;
 unsigned long startMillis;
 unsigned long currentMillis;
 const unsigned long updateTime = 60000; // 1 min aggiorno orologio su scr
@@ -25,6 +26,8 @@ void initTime(){
     int nr = 0;         // numero di tentativi
     int ntMax = 5;     //numero di tentativi di connessione al server ntp
     int dt = 1000;      //tempo attesa ri-tentativo
+    String ore;
+    String Giorno;
     DEBUG_PRINTLN("Syncing time...");
     configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
     while(time(nullptr) <= 150000) {
@@ -38,8 +41,20 @@ void initTime(){
     }
     getLocalTime(&timeinfo);
     delay(10);
-    Data = dow[timeinfo.tm_wday] + " " + String(timeinfo.tm_mday) + " " +  months[timeinfo.tm_mon];
-    Ora = String(timeinfo.tm_hour) + ":" + String(timeinfo.tm_min);
+    if(timeinfo.tm_mday<10)
+        Giorno = "0" + String(timeinfo.tm_mday);
+    else
+        Giorno = String(timeinfo.tm_mday);
+    Data = dow[timeinfo.tm_wday] + " " + Giorno + " " +  months[timeinfo.tm_mon];
+    if(timeinfo.tm_hour<10)
+        ore = "0" + String(timeinfo.tm_hour);
+    else
+        ore = String(timeinfo.tm_hour);
+    if(timeinfo.tm_min<10)
+        minuti = "0" + String(timeinfo.tm_min);
+    else
+        minuti = String(timeinfo.tm_min);
+    Ora = ore + ":" + minuti;
 
     DEBUG_PRINTLN("Time from Internet  ");
     DEBUG_PRINT(Data);

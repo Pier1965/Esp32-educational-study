@@ -1,5 +1,3 @@
-WiFiClient client;
-
 void connectToWIFI()
   {
     DEBUG_PRINT("Connecting to SSID ");

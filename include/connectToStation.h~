@@ -10,7 +10,7 @@ void connectToStation()
   if (!client.connect(host[STATION], port[STATION])) {
     DEBUG_PRINTLN("Connection failed");
     DEBUG_PRINT("Canale non raggiungibile...");
-    //printSCR_notavail();
+    printSCR_notavail();
     delay(1000);
     if (nxtButton == 1){
       if(STATION < NR-1){
@@ -32,7 +32,11 @@ void connectToStation()
     DEBUG_PRINT("Requesting stream: ");
     DEBUG_PRINTLN(path[STATION]);
 
-    client.print(String("GET ") + path[STATION] + " HTTP/1.1\r\n" +
+    /*client.print(String("GET ") + path[STATION] + " HTTP/1.1\r\n" +
+                 "Host: " + host[STATION] + "\r\n" +
+                 "Connection: close\r\n\r\n");*/
+    client.print(String("GET ") + path[STATION] + " HTTP/1.0\r\n" +
                  "Host: " + host[STATION] + "\r\n" +
                  "Connection: close\r\n\r\n");
+delay(2000);
 }
