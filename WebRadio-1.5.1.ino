@@ -103,8 +103,8 @@ WiFiClient client;
 #include "./include/ir_butt.h"
 #include "./include/ir.h"
 // WiFi settings
-const char *ssid = "SSSR65";
-const char *password = "38314447668501196816";
+const char *ssid = "XXXXX";
+const char *password = "XXXXXX";
 #include"./include/connectToWIFI.h"
 //Gestione data e ora
 #include "./include/datetime.h"
