@@ -1,10 +1,15 @@
 bool checkTime(){
     String ore;
     String Giorno;
-    currentMillis = millis();  //get the current "time" (actually the number of milliseconds since the program started)
-    if (currentMillis - startMillis >= updateTime){
+    currentMillis = millis();  //che ore sono?
+    if (currentMillis - startMillis >= updateTime){ //è ora di aggiornare l'ora?
         startMillis = currentMillis;
-        getLocalTime(&timeinfo);
+        if(gotTime){ //Il tentativo di inizializzare l'ora ha avuto successo all'accensione?
+            initTime(); // No... riproviamo
+        }else{
+            time(&now); // Si aggiorniamo senza ricontattare il server NTP
+            localtime_r(&now, &timeinfo);
+        }
         if(timeinfo.tm_mday<10)
             Giorno = "0" + String(timeinfo.tm_mday);
         else
@@ -19,16 +24,12 @@ bool checkTime(){
         else
             minuti = String(timeinfo.tm_min);
         Ora = ore + ":" + minuti;
-        //updateSCR();
+
         DEBUG_PRINTLN("Time from Internet  ");
         DEBUG_PRINT(Data);
         DEBUG_PRINT(" - ");
         DEBUG_PRINTLN(Ora);
         return true;
-    }
-    if (currentMillis - startMillis >= 5*updateTime){
-        player.softReset();
-        //player.switchToMp3Mode();
     }
     return false;
 }

@@ -1,8 +1,10 @@
-const char* ntpServer = "1.it.pool.ntp.org";
+const char* ntpServer = "time-e-wwv.nist.gov";
 const long  gmtOffset_sec = 3600;   // Eastern Standard Time
 const int   daylightOffset_sec = 3600;
+bool gotTime = false;
 String time_string;
 struct tm timeinfo;
+time_t now;
   // int tm_sec;
   // int tm_min;
   // int tm_hour;
@@ -20,7 +22,7 @@ struct tm timeinfo;
 unsigned long startMillis;
 unsigned long currentMillis;
 const unsigned long updateTime = 60000; // 1 min aggiorno orologio su scr
-
+// Recupero dell'ora
 void initTime(){
 // Init and get the time
     int nr = 0;         // numero di tentativi
@@ -31,15 +33,21 @@ void initTime(){
     DEBUG_PRINTLN("Syncing time...");
     configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
     while(time(nullptr) <= 150000) {
-        DEBUG_PRINTLN("..........");
+        DEBUG_PRINTLN("Tentativo di recupero orario...");
         nr++;
         if (nr > ntMax) {
-			DEBUG_PRINTLN("Gave up waiting for network time(nullptr) to have a valid value.");
+			DEBUG_PRINTLN("Recupero orario fallito...");
+            gotTime = false;
 			break;
 		}
         delay(dt);
     }
-    getLocalTime(&timeinfo);
+    if(nr < ntMax){
+            DEBUG_PRINTLN("Recupero orario eseguito...");
+            gotTime = true;
+
+    }
+    !getLocalTime(&timeinfo);
     delay(10);
     if(timeinfo.tm_mday<10)
         Giorno = "0" + String(timeinfo.tm_mday);
