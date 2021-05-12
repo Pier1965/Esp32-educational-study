@@ -1,4 +1,4 @@
-const char* ntpServer = "time-e-wwv.nist.gov";
+const char* ntpServer;
 const long  gmtOffset_sec = 3600;   // Eastern Standard Time
 const int   daylightOffset_sec = 3600;
 bool gotTime = false;
@@ -24,6 +24,12 @@ unsigned long currentMillis;
 const unsigned long updateTime = 60000; // 1 min aggiorno orologio su scr
 // Recupero dell'ora
 void initTime(){
+if(WiFi.SSID()=="SSSR65")
+    {
+        ntpServer = "192.168.178.1";
+    }else{
+        ntpServer = "pool.ntp.org";
+    }
 // Init and get the time
     int nr = 0;         // numero di tentativi
     int ntMax = 5;     //numero di tentativi di connessione al server ntp
